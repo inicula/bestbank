@@ -22,15 +22,27 @@ public class Bank extends Institution {
         while(true)
         {
             System.out.println("Bank menu. Select one of the available options:");
-            System.out.println("1. Print bank account information.");
-            System.out.println("2. Create new bank account.");
-            System.out.println("3. Delete bank account.");
+            System.out.println("1. Print ID and number of all bank accounts.");
+            System.out.println("2. Print bank account information.");
+            System.out.println("3. Create new bank account.");
+            System.out.println("4. Delete bank account.");
 
             int opt = scan.nextInt();
             int idx;
             switch(opt)
             {
                 case 1:
+                    for(int i = 0; i < accounts.size(); i++)
+                    {
+                        MessageFormat fmt = new MessageFormat("ID: {0} | Number: {1}");
+                        System.out.println(fmt.format(new Object[] {i, accounts.get(i).getNumber()}));
+                    }
+                    System.out.println("");
+                    break;
+
+                case 2:
+                    System.out.println("Enter the index of the bank account you want to print");
+
                     idx = scan.nextInt();
                     if(idx < 0 || idx >= accounts.size())
                     {
@@ -42,10 +54,12 @@ public class Bank extends Institution {
                     System.out.println(accounts.get(idx));
 
                     break;
-                case 2:
+                case 3:
                     accounts.add(Account.read());
                     break;
-                case 3:
+                case 4:
+                    System.out.println("Enter the index of the bank account you want to delete");
+
                     idx = scan.nextInt();
                     if(idx < 0 || idx >= accounts.size())
                     {

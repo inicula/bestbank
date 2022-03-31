@@ -30,11 +30,12 @@ public class Main {
                 case 1:
                     for(int i = 0; i < banks.size(); i++)
                     {
-                        MessageFormat fmt = new MessageFormat("ID: {0}\nInfo:\n{1}");
-                        System.out.println(fmt.format(new Object[] {i + 1, banks.get(i).getName()}));
+                        MessageFormat fmt = new MessageFormat("ID: {0} | Name: {1}");
+                        System.out.println(fmt.format(new Object[] {i, banks.get(i).getName()}));
                     }
                     System.out.println("");
                     break;
+
                 case 2:
                     System.out.println("Enter the index of the bank you want to access:");
 
