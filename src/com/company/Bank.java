@@ -27,6 +27,7 @@ public class Bank extends Institution {
             System.out.println("3. Create new bank account.");
             System.out.println("4. Delete bank account.");
             System.out.println("5. Change or delegate manager.");
+            System.out.println("6. Bind a card to an account.");
 
             int opt = scan.nextInt();
             int idx;
@@ -75,6 +76,19 @@ public class Bank extends Institution {
                 case 5:
                     manager = Manager.read();
                     System.out.println("The manager of the bank has been modified.");
+                    break;
+
+                case 6:
+                    System.out.println("Enter the index of the bank account you want to bind a card to:");
+
+                    idx = scan.nextInt();
+                    if(idx < 0 || idx >= accounts.size())
+                    {
+                        System.out.println("Invalid index. Returning to bank menu.");
+                        continue;
+                    }
+
+                    accounts.get(idx).bind_card();
                     break;
 
                 default:
