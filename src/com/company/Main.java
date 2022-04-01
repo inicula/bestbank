@@ -33,7 +33,7 @@ public class Main {
                         MessageFormat fmt = new MessageFormat("ID: {0} | Name: {1}");
                         System.out.println(fmt.format(new Object[] {i, banks.get(i).getName()}));
                     }
-                    System.out.println("");
+                    System.out.println();
                     break;
 
                 case 2:
@@ -56,6 +56,7 @@ public class Main {
                 default:
                     clearScreen();
                     System.out.println("You have exited the main menu.");
+                    clearScreen();
                     return;
             }
         }

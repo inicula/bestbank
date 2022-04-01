@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Scanner;
+
 public class Manager extends Person {
     private int employee_id;
 
@@ -21,5 +23,29 @@ public class Manager extends Person {
                 ", cnp='" + cnp + '\'' +
                 ", age=" + age +
                 '}';
+    }
+
+    public static Manager read()
+    {
+        String name;
+        String address;
+        String cnp;
+        int age;
+
+        Scanner scan = new Scanner(System.in);
+
+        System.out.println("Enter the name of the manager:");
+        name = scan.nextLine();
+
+        System.out.println("Enter the address of the manager:");
+        address = scan.nextLine();
+
+        System.out.println("Enter the CNP of the manager:");
+        cnp = scan.nextLine();
+
+        System.out.println("Enter the age of the manager:");
+        age = scan.nextInt();
+
+        return new Manager(name, address, cnp, age);
     }
 }

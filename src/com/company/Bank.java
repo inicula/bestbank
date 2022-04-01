@@ -26,6 +26,7 @@ public class Bank extends Institution {
             System.out.println("2. Print bank account information.");
             System.out.println("3. Create new bank account.");
             System.out.println("4. Delete bank account.");
+            System.out.println("5. Change or delegate manager.");
 
             int opt = scan.nextInt();
             int idx;
@@ -37,7 +38,7 @@ public class Bank extends Institution {
                         MessageFormat fmt = new MessageFormat("ID: {0} | Number: {1}");
                         System.out.println(fmt.format(new Object[] {i, accounts.get(i).getNumber()}));
                     }
-                    System.out.println("");
+                    System.out.println();
                     break;
 
                 case 2:
@@ -52,11 +53,12 @@ public class Bank extends Institution {
 
                     System.out.println("Bank account information:");
                     System.out.println(accounts.get(idx));
-
                     break;
+
                 case 3:
                     accounts.add(Account.read());
                     break;
+
                 case 4:
                     System.out.println("Enter the index of the bank account you want to delete");
 
@@ -69,6 +71,12 @@ public class Bank extends Institution {
 
                     accounts.remove(idx);
                     break;
+
+                case 5:
+                    manager = Manager.read();
+                    System.out.println("The manager of the bank has been modified.");
+                    break;
+
                 default:
                     System.out.println("You have exited the Bank menu. Press any key to continue.");
                     scan.nextByte();
