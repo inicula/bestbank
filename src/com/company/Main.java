@@ -75,14 +75,23 @@ public class Main {
         }
 
         for(var bank : banks) {
-            PrintStream fout = null;
+            PrintStream fout_details = null;
+            PrintStream fout_accounts = null;
             try {
-                String path = bank.getName() + "/details.txt";
-                File file = new File(path);
-                file.getParentFile().mkdirs();
-                file.createNewFile();
+                String path_details = bank.getName() + "/details.csv";
+                String path_accounts = bank.getName() + "/accounts.csv";
 
-                fout = new PrintStream(path);
+                File file_details = new File(path_details);
+                File file_accounts = new File(path_accounts);
+
+                file_details.getParentFile().mkdirs();
+                file_details.createNewFile();
+
+                file_accounts.getParentFile().mkdirs();
+                file_accounts.createNewFile();
+
+                fout_details = new PrintStream(path_details);
+                fout_accounts = new PrintStream(path_accounts);
             }
             catch(IOException e)
             {
@@ -90,9 +99,8 @@ public class Main {
             }
 
             var str = bank.toCSV();
-            fout.println(str[0]);
-            fout.println(str[1]);
-            fout.println();
+            fout_details.println(str[0]);
+            fout_accounts.println(str[1]);
         }
     }
     public static void main(String[] args) {
