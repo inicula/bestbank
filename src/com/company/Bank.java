@@ -29,13 +29,15 @@ public class Bank extends Institution {
         return parts;
     }
 
-    public static Bank fromCSV(String[] p1, String[][] p2) {
+    public static Bank fromCSV(List<String> p1, List<List<String>> p2) {
         List<Account> accounts = new ArrayList<>();
-        for (int i = 0; i < p2.length; i++) {
-            accounts.add(Account.fromCSV(p2[i], 0));
+        for (int i = 0; i < p2.size(); i++) {
+            if(p2.get(i).size() > 0) {
+                accounts.add(Account.fromCSV(p2.get(i), 0));
+            }
         }
 
-        return new Bank(p1[0], p1[1], accounts, Manager.fromCSV(p1, 2));
+        return new Bank(p1.get(0), p1.get(1), accounts, Manager.fromCSV(p1, 2));
     }
 
     public void menu()

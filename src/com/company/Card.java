@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Card {
@@ -15,8 +16,8 @@ public class Card {
         return "N" + "," + number + "," + expiry_date;
     }
 
-    public static Card fromCSV(String[] arr, Integer offset) {
-        return new Card(arr[offset], arr[offset + 1]);
+    public static Card fromCSV(List<String> arr, Integer offset) {
+        return new Card(arr.get(offset), arr.get(offset + 1));
     }
 
     public String getNumber() {

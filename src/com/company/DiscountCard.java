@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.Scanner;
+import java.util.List;
 
 public class DiscountCard extends Card {
     private Double discount;
@@ -31,8 +32,8 @@ public class DiscountCard extends Card {
         return "D" + "," + number + "," + expiry_date + "," + discount.toString();
     }
 
-    public static DiscountCard fromCSV(String[] arr, Integer offset) {
-        return new DiscountCard(arr[offset], arr[offset + 1], Double.parseDouble(arr[offset +  2]));
+    public static DiscountCard fromCSV(List<String> arr, Integer offset) {
+        return new DiscountCard(arr.get(offset), arr.get(offset + 1), Double.parseDouble(arr.get(offset +  2)));
     }
 
     public static DiscountCard read()

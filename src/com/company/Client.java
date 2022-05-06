@@ -1,5 +1,6 @@
 package com.company;
 import java.util.Scanner;
+import java.util.List;
 
 public class Client extends Person{
     public static Integer csv_len = 4;
@@ -12,12 +13,12 @@ public class Client extends Person{
 
     public String toCSV(){
         return name + "," + address + "," + cnp + "," +
-               age.toString() + ","  + client_id.toString();
+               age.toString();
     }
 
-    public static Client fromCSV(String[] arr, Integer offset){
-        return new Client(arr[offset], arr[offset + 1], arr[offset + 2],
-                          Integer.parseInt(arr[offset + 3]));
+    public static Client fromCSV(List<String> arr, Integer offset){
+        return new Client(arr.get(offset), arr.get(offset + 1), arr.get(offset + 2),
+                          Integer.parseInt(arr.get(offset + 3)));
     }
 
     public int getClient_id() {

@@ -1,5 +1,6 @@
 package com.company;
 import java.util.Scanner;
+import java.util.List;
 
 public class Account {
     private String number;
@@ -29,11 +30,11 @@ public class Account {
                 ","  + card_str;
     }
 
-    public static Account fromCSV(String[] arr, Integer offset) {
+    public static Account fromCSV(List<String> arr, Integer offset) {
         Card c = null;
-        if(!arr[offset + 2 + Client.csv_len].equals("null"))
+        if(!arr.get(offset + 2 + Client.csv_len).equals("null"))
         {
-            if(arr[offset + 2 + Client.csv_len].equals("N"))
+            if(arr.get(offset + 2 + Client.csv_len).equals("N"))
             {
                 c = Card.fromCSV(arr, offset + 2 + Client.csv_len + 1);
             }
@@ -43,7 +44,7 @@ public class Account {
             }
         }
 
-        return new Account(arr[offset], arr[offset + 1], Client.fromCSV(arr, offset + 2),
+        return new Account(arr.get(offset), arr.get(offset + 1), Client.fromCSV(arr, offset + 2),
                            c);
     }
 
@@ -52,15 +53,15 @@ public class Account {
         System.out.println("Press N for normal card and D for discount card.");
 
         Scanner scan = new Scanner(System.in);
-        int opt = scan.nextInt();
+        char opt = scan.next().charAt(0);
 
-        if(opt != 1 && opt != 2)
+        if(opt != 'N' && opt != 'D')
         {
             System.err.println("Invalid option. Returning to previous menu.");
             return;
         }
 
-        if(opt == 1)
+        if(opt == 'N')
         {
             this.associated_card = Card.read();
         }

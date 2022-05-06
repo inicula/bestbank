@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.Scanner;
+import java.util.List;
 
 public class Manager extends Person {
     private int employee_id;
@@ -18,8 +19,9 @@ public class Manager extends Person {
         return name + "," + address + "," + cnp + "," + age.toString();
     }
 
-    public static Manager fromCSV(String[] arr, Integer offset){
-        return new Manager(arr[offset], arr[offset + 1], arr[offset + 2], Integer.parseInt(arr[offset + 3]));
+    public static Manager fromCSV(List<String> arr, Integer offset){
+        return new Manager(arr.get(offset), arr.get(offset + 1), arr.get(offset + 2),
+                           Integer.parseInt(arr.get(offset + 3)));
     }
 
     @Override

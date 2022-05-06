@@ -1,5 +1,5 @@
 package com.company;
-import java.io.FileOutputStream;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.text.MessageFormat;
@@ -15,10 +15,50 @@ public class Main {
         System.out.flush();
     }
 
+    public static void getPreviousState(List<Bank> banks) {
+        CSVReader<String> reader = new CSVReader<>(new StringParser());
+
+        File folder = new File("banks/");
+        File[] files = folder.listFiles();
+
+        if(files == null)
+        {
+            return;
+        }
+
+        for(File file : files)
+        {
+            String path_details = file.getPath() + "/details.csv";
+            String path_accounts = file.getPath() + "/accounts.csv";
+
+            List<String> split_details;
+            List<List<String>> split_accounts = new ArrayList<>();
+
+            try {
+                Scanner scn_details = new Scanner(new File(path_details));
+                String line = scn_details.nextLine();
+                split_details = reader.getValues(line);
+
+                Scanner scn_accounts = new Scanner(new File(path_accounts));
+                while(scn_accounts.hasNextLine()) {
+                    String ac_line = scn_accounts.nextLine();
+
+                    if(ac_line.length() > 0) {
+                        split_accounts.add(reader.getValues(ac_line));
+                    }
+                }
+            }
+            catch(IOException e) { return; }
+
+            banks.add(Bank.fromCSV(split_details, split_accounts));
+        }
+    }
 
     public static void menu()
     {
         List<Bank> banks = new ArrayList<>();
+        getPreviousState(banks);
+
         Scanner scan = new Scanner(System.in);
 
         while(true)
@@ -82,8 +122,8 @@ public class Main {
             PrintStream fout_details = null;
             PrintStream fout_accounts = null;
             try {
-                String path_details = bank.getName() + "/details.csv";
-                String path_accounts = bank.getName() + "/accounts.csv";
+                String path_details = "banks/" + bank.getName() + "/details.csv";
+                String path_accounts = "banks/" + bank.getName() + "/accounts.csv";
 
                 File file_details = new File(path_details);
                 File file_accounts = new File(path_accounts);
