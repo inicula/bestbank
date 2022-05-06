@@ -1,15 +1,24 @@
 package com.company;
 import java.util.ArrayList;
 
-public class CSVReader<T> {
-    public CSVReader(Parser<T> parser) {
+public class CSVReader {
+    private Parser parser;
+    private static CSVReader instance = null;
+
+    private CSVReader(Parser parser) {
         this.parser = parser;
     }
 
-    Parser<T> parser;
+    public static CSVReader getInstance(Parser parser) {
+        if(instance == null) {
+            instance = new CSVReader(parser);
+        }
 
-    public ArrayList<T> getValues(String line) {
-        ArrayList<T> res = new ArrayList<T>();
+        return instance;
+    }
+
+    public ArrayList getValues(String line) {
+        ArrayList res = new ArrayList();
 
         var arr = line.split("[,]");
         for(String str : arr)

@@ -16,7 +16,8 @@ public class Main {
     }
 
     public static void getPreviousState(List<Bank> banks) {
-        CSVReader<String> reader = new CSVReader<>(new StringParser());
+        var s_parser = new StringParser();
+        var reader = CSVReader.getInstance(s_parser);
 
         File folder = new File("banks/");
         File[] files = folder.listFiles();
