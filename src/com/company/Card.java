@@ -11,6 +11,14 @@ public class Card {
         this.expiry_date = expiry_date;
     }
 
+    public String toCSV() {
+        return "N" + "," + number + "," + expiry_date;
+    }
+
+    public static Card fromCSV(String[] arr, Integer offset) {
+        return new Card(arr[offset], arr[offset + 1]);
+    }
+
     public String getNumber() {
         return number;
     }

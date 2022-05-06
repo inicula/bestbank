@@ -1,8 +1,14 @@
 package com.company;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.text.MessageFormat;
 import java.util.List;
+import java.io.FileOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -24,6 +30,7 @@ public class Main {
             System.out.println("3. Add a new bank to the list");
             System.out.println("Input any other number to exit the menu.");
 
+            Boolean quit = false;
             int opt = scan.nextInt();
             switch(opt)
             {
@@ -57,8 +64,35 @@ public class Main {
                     clearScreen();
                     System.out.println("You have exited the main menu.");
                     clearScreen();
-                    return;
+                    quit = true;
+                    break;
             }
+
+            if(quit)
+            {
+                break;
+            }
+        }
+
+        for(var bank : banks) {
+            PrintStream fout = null;
+            try {
+                String path = bank.getName() + "/details.txt";
+                File file = new File(path);
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+
+                fout = new PrintStream(path);
+            }
+            catch(IOException e)
+            {
+                break;
+            }
+
+            var str = bank.toCSV();
+            fout.println(str[0]);
+            fout.println(str[1]);
+            fout.println();
         }
     }
     public static void main(String[] args) {

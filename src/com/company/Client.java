@@ -2,11 +2,22 @@ package com.company;
 import java.util.Scanner;
 
 public class Client extends Person{
-    private int client_id;
+    public static Integer csv_len = 4;
+    private Integer client_id;
 
-    public Client(String name, String address, String cnp, int age) {
+    public Client(String name, String address, String cnp, Integer age) {
         super(name, address, cnp, age);
         this.client_id = cnp.hashCode();
+    }
+
+    public String toCSV(){
+        return name + "," + address + "," + cnp + "," +
+               age.toString() + ","  + client_id.toString();
+    }
+
+    public static Client fromCSV(String[] arr, Integer offset){
+        return new Client(arr[offset], arr[offset + 1], arr[offset + 2],
+                          Integer.parseInt(arr[offset + 3]));
     }
 
     public int getClient_id() {
@@ -29,7 +40,7 @@ public class Client extends Person{
         String name;
         String address;
         String cnp;
-        int age;
+        Integer age;
 
         Scanner scan = new Scanner(System.in);
 

@@ -7,16 +7,49 @@ public class Account {
     private Client owner;
     private Card associated_card;
 
-    public Account(String number, String currency, Client owner) {
+    public Account(String number, String currency, Client owner, Card c) {
         this.number = number;
         this.currency = currency;
         this.owner = owner;
-        this.associated_card = null;
+        this.associated_card = c;
+    }
+
+    public String toCSV(){
+        String card_str;
+        if(associated_card == null)
+        {
+            card_str = "null";
+        }
+        else
+        {
+            card_str = associated_card.toCSV();
+        }
+
+        return number + "," + currency + "," + owner.toCSV() +
+                ","  + card_str;
+    }
+
+    public static Account fromCSV(String[] arr, Integer offset) {
+        Card c = null;
+        if(!arr[offset + 2 + Client.csv_len].equals("null"))
+        {
+            if(arr[offset + 2 + Client.csv_len].equals("N"))
+            {
+                c = Card.fromCSV(arr, offset + 2 + Client.csv_len + 1);
+            }
+            else
+            {
+                c = DiscountCard.fromCSV(arr, offset + 2 + Client.csv_len + 1);
+            }
+        }
+
+        return new Account(arr[offset], arr[offset + 1], Client.fromCSV(arr, offset + 2),
+                           c);
     }
 
     public void bind_card()
     {
-        System.out.println("Press 1 for normal card and 2 for discount card.");
+        System.out.println("Press N for normal card and D for discount card.");
 
         Scanner scan = new Scanner(System.in);
         int opt = scan.nextInt();
@@ -37,8 +70,7 @@ public class Account {
         }
     }
 
-    public static Account read()
-    {
+    public static Account read() {
         Scanner scan = new Scanner(System.in);
 
         String num;
@@ -53,7 +85,7 @@ public class Account {
 
         client = Client.read();
 
-        return new Account(num, currency, client);
+        return new Account(num, currency, client, null);
     }
 
     public String getNumber() {

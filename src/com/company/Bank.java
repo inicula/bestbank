@@ -16,6 +16,28 @@ public class Bank extends Institution {
         this.manager = manager;
     }
 
+    public String[] toCSV() {
+        String[] parts;
+        parts = new String[2];
+
+        parts[0] = name + "," + address + "," + manager.toCSV();
+        parts[1] = "";
+        for(var acc : accounts){
+            parts[1] += acc.toCSV() + "\n";
+        }
+
+        return parts;
+    }
+
+    public static Bank fromCSV(String[] p1, String[][] p2) {
+        List<Account> accounts = new ArrayList<>();
+        for (int i = 0; i < p2.length; i++) {
+            accounts.add(Account.fromCSV(p2[i], 0));
+        }
+
+        return new Bank(p1[0], p1[1], accounts, Manager.fromCSV(p1, 2));
+    }
+
     public void menu()
     {
         Scanner scan = new Scanner(System.in);
@@ -139,6 +161,8 @@ public class Bank extends Institution {
         System.out.println("Enter the address of the bank:");
         address = scan.nextLine();
 
-        return new Bank(name, address, new ArrayList<>(), null);
+        Manager m = Manager.read();
+
+        return new Bank(name, address, new ArrayList<>(), m);
     }
 }

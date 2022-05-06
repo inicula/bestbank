@@ -4,13 +4,17 @@ public class Person {
     protected String name;
     protected String address;
     protected String cnp;
-    protected int age;
+    protected Integer age;
 
-    public Person(String name, String address, String cnp, int age) {
+    public Person(String name, String address, String cnp, Integer age) {
         this.name = name;
         this.address = address;
         this.cnp = cnp;
         this.age = age;
+    }
+
+    public String toCSV(){
+        return name + "," + address + "," + cnp + "," + age.toString();
     }
 
     @Override
@@ -51,7 +55,7 @@ public class Person {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 }

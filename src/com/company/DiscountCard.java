@@ -3,18 +3,18 @@ package com.company;
 import java.util.Scanner;
 
 public class DiscountCard extends Card {
-    private float discount;
+    private Double discount;
 
-    public DiscountCard(String number, String expiry_date, float discount) {
+    public DiscountCard(String number, String expiry_date, Double discount) {
         super(number, expiry_date);
         this.discount = discount;
     }
 
-    public float getDiscount() {
+    public Double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(float discount) {
+    public void setDiscount(Double discount) {
         this.discount = discount;
     }
 
@@ -27,11 +27,19 @@ public class DiscountCard extends Card {
                 '}';
     }
 
+    public String toCSV() {
+        return "D" + "," + number + "," + expiry_date + "," + discount.toString();
+    }
+
+    public static DiscountCard fromCSV(String[] arr, Integer offset) {
+        return new DiscountCard(arr[offset], arr[offset + 1], Double.parseDouble(arr[offset +  2]));
+    }
+
     public static DiscountCard read()
     {
         String number;
         String expiry_date;
-        float discount;
+        Double discount;
 
         Scanner scan = new Scanner(System.in);
 
@@ -42,7 +50,7 @@ public class DiscountCard extends Card {
         expiry_date = scan.nextLine();
 
         System.out.println("Enter the discount for the purchases made with this card:");
-        discount = scan.nextFloat();
+        discount = scan.nextDouble();
 
         return new DiscountCard(number, expiry_date, discount);
     }

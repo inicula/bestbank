@@ -5,13 +5,21 @@ import java.util.Scanner;
 public class Manager extends Person {
     private int employee_id;
 
-    public Manager(String name, String address, String cnp, int age) {
+    public Manager(String name, String address, String cnp, Integer age) {
         super(name, address, cnp, age);
         this.employee_id = cnp.hashCode();
     }
 
     public int getEmployee_id() {
         return employee_id;
+    }
+
+    public String toCSV() {
+        return name + "," + address + "," + cnp + "," + age.toString();
+    }
+
+    public static Manager fromCSV(String[] arr, Integer offset){
+        return new Manager(arr[offset], arr[offset + 1], arr[offset + 2], Integer.parseInt(arr[offset + 3]));
     }
 
     @Override
