@@ -62,6 +62,7 @@ public class Bank extends Institution {
                         System.out.println(fmt.format(new Object[] {i, accounts.get(i).getNumber()}));
                     }
                     System.out.println();
+                    Logger.getInstance().write("print all bank accounts");
                     break;
 
                 case 2:
@@ -76,9 +77,11 @@ public class Bank extends Institution {
 
                     System.out.println("Bank account information:");
                     System.out.println(accounts.get(idx));
+                    Logger.getInstance().write("print bank account info");
                     break;
 
                 case 3:
+                    Logger.getInstance().write("create bank account");
                     accounts.add(Account.read());
                     break;
 
@@ -92,12 +95,14 @@ public class Bank extends Institution {
                         continue;
                     }
 
+                    Logger.getInstance().write("delete bank account");
                     accounts.remove(idx);
                     break;
 
                 case 5:
                     manager = Manager.read();
                     System.out.println("The manager of the bank has been modified.");
+                    Logger.getInstance().write("change bank's manager");
                     break;
 
                 case 6:
@@ -110,11 +115,13 @@ public class Bank extends Institution {
                         continue;
                     }
 
+                    Logger.getInstance().write("bind card to account");
                     accounts.get(idx).bind_card();
                     break;
 
                 default:
                     System.out.println("You have exited the Bank menu. Press any key to continue.");
+                    Logger.getInstance().write("exit bank menu");
                     scan.nextByte();
                     return;
 

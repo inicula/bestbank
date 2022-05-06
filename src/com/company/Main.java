@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.text.MessageFormat;
 import java.util.List;
-import java.io.FileOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.util.stream.Collectors;
+import java.io.*;
+import java.util.*;
+import java.text.*;
 
 public class Main {
 
@@ -16,6 +14,7 @@ public class Main {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
+
 
     public static void menu()
     {
@@ -41,6 +40,9 @@ public class Main {
                         System.out.println(fmt.format(new Object[] {i, banks.get(i).getName()}));
                     }
                     System.out.println();
+
+                    Logger.getInstance().write("print bank names");
+
                     break;
 
                 case 2:
@@ -54,6 +56,7 @@ public class Main {
                         continue;
                     }
 
+                    Logger.getInstance().write("enter bank menu");
                     System.out.println("Entering Bank menu...");
                     banks.get(idx).menu();
                     break;
@@ -64,6 +67,7 @@ public class Main {
                     clearScreen();
                     System.out.println("You have exited the main menu.");
                     clearScreen();
+                    Logger.getInstance().write("exit main menu");
                     quit = true;
                     break;
             }
@@ -104,6 +108,7 @@ public class Main {
         }
     }
     public static void main(String[] args) {
+        Logger.getInstance().write("startup");
         menu();
     }
 }
